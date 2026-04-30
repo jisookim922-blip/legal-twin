@@ -278,7 +278,7 @@ export async function embedSafe(params: {
   text: string;
   model?: string;
 }): Promise<{ embedding: number[]; piiCount: number }> {
-  const { context, text, model = "google/text-embedding-004" } = params;
+  const { context, text, model = "google/text-embedding-005" } = params;
 
   if (context.confidentialMode) {
     throw new Error("機密案件モードのため外部AIへの送信はブロックされました");

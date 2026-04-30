@@ -1,7 +1,7 @@
 import { embed, embedMany } from "ai";
 import { gateway } from "@ai-sdk/gateway";
 
-const EMBEDDING_MODEL = "google/text-embedding-004"; // 768 dimensions
+const EMBEDDING_MODEL = "google/text-embedding-005"; // 768 dimensions
 
 export async function embedText(text: string): Promise<number[]> {
   const { embedding } = await embed({

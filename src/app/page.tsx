@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
+import Footer from "@/components/Footer";
 
 export default async function LandingPage() {
   const user = await currentUser();
@@ -192,20 +193,7 @@ export default async function LandingPage() {
         </Link>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-100 py-8">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-gray-400">
-          <div>© 2026 LegalTwin</div>
-          <div className="flex gap-6">
-            <Link href="/pricing" className="hover:text-gray-600">
-              料金
-            </Link>
-            <Link href="/sign-in" className="hover:text-gray-600">
-              ログイン
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

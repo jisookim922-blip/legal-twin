@@ -3,6 +3,7 @@ import { Output } from "ai";
 import { z } from "zod";
 import { neon } from "@neondatabase/serverless";
 import { generateTextSafe } from "@/lib/ai-wrapper";
+import { aiLimiter, checkRateLimit, rateLimitResponse } from "@/lib/ratelimit";
 
 const reviewSchema = z.object({
   overallScore: z.number().min(0).max(100),
@@ -38,6 +39,9 @@ export async function POST(req: Request) {
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const rl = await checkRateLimit(aiLimiter, userId);
+  if (!rl.success) return rateLimitResponse(rl);
 
   const {
     documentContent,

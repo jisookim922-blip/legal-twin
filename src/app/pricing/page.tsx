@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Check, Loader2, Scale, ArrowRight } from "lucide-react";
 import { PLANS, type PlanId } from "@/lib/stripe";
+import Footer from "@/components/Footer";
 
 export default function PricingPage() {
   const { isSignedIn, isLoaded } = useUser();
@@ -181,6 +182,8 @@ export default function PricingPage() {
           ))}
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

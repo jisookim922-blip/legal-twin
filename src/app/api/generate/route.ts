@@ -4,12 +4,16 @@ import { streamTextSafe } from "@/lib/ai-wrapper";
 import { embedSafe } from "@/lib/ai-wrapper";
 import { DOCUMENT_TYPE_LABELS } from "@/types";
 import type { DocumentType } from "@/types";
+import { heavyLimiter, checkRateLimit, rateLimitResponse } from "@/lib/ratelimit";
 
 export async function POST(req: Request) {
   const { userId } = await auth();
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const rl = await checkRateLimit(heavyLimiter, userId);
+  if (!rl.success) return rateLimitResponse(rl);
 
   const {
     documentType,

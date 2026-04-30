@@ -1,12 +1,16 @@
 import { auth } from "@clerk/nextjs/server";
 import { streamTextSafe } from "@/lib/ai-wrapper";
 import { systemInstruction } from "@/lib/constants";
+import { aiLimiter, checkRateLimit, rateLimitResponse } from "@/lib/ratelimit";
 
 export async function POST(req: Request) {
   const { userId } = await auth();
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const rl = await checkRateLimit(aiLimiter, userId);
+  if (!rl.success) return rateLimitResponse(rl);
 
   const {
     messages,

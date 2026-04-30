@@ -6,10 +6,15 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/pricing",
+  "/terms",
+  "/privacy",
+  "/tokushoho",
+  "/sitemap.xml",
+  "/robots.txt",
+  "/opengraph-image(.*)",
   "/api/stripe/webhook",
+  "/api/cron/(.*)",
 ]);
-
-// Routes accessible without authentication (additional public APIs would go here)
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) {
@@ -19,9 +24,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and static files
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };

@@ -9,12 +9,15 @@ import { trialEndingEmailHtml, sendEmail } from "@/lib/email";
  * Authentication: CRON_SECRET in Authorization header.
  */
 export async function GET(req: Request) {
-  // Verify Vercel Cron auth
+  // Verify Vercel Cron auth — requires CRON_SECRET to be set
   const authHeader = req.headers.get("authorization");
-  if (
-    process.env.CRON_SECRET &&
-    authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
+  if (!process.env.CRON_SECRET) {
+    return Response.json(
+      { error: "CRON_SECRET not configured" },
+      { status: 503 }
+    );
+  }
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 

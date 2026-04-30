@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Check, Loader2, Scale, ArrowRight } from "lucide-react";
-import { PLANS, type PlanId } from "@/lib/stripe";
+import { PLANS, type PlanId } from "@/lib/plans";
 import Footer from "@/components/Footer";
 
 export default function PricingPage() {
@@ -39,8 +39,8 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F7]">
       {/* Nav */}
-      <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
+      <nav className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-6 flex items-center justify-between gap-3">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
           <div className="bg-blue-600 p-2 rounded-xl shadow-sm text-white">
             <Scale size={18} strokeWidth={2.5} />
           </div>
@@ -50,14 +50,14 @@ export default function PricingPage() {
           {isLoaded && isSignedIn ? (
             <Link
               href="/app"
-              className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] font-medium rounded-full transition-colors shadow-sm"
+              className="px-4 md:px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-[13px] md:text-[14px] font-medium rounded-full transition-colors shadow-sm whitespace-nowrap"
             >
               ワークスペースへ
             </Link>
           ) : (
             <Link
               href="/sign-in"
-              className="px-4 py-2 text-[14px] font-medium text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-[13px] md:text-[14px] font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
             >
               ログイン
             </Link>

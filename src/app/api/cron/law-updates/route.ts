@@ -12,10 +12,13 @@ import { neon } from "@neondatabase/serverless";
  */
 export async function GET(req: Request) {
   const authHeader = req.headers.get("authorization");
-  if (
-    process.env.CRON_SECRET &&
-    authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
+  if (!process.env.CRON_SECRET) {
+    return Response.json(
+      { error: "CRON_SECRET not configured" },
+      { status: 503 }
+    );
+  }
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
